@@ -14,12 +14,15 @@ export type WolframImage = {
 
 /**
  * One subpod: the atomic unit of a Wolfram Alpha answer. May contain plaintext
- * (when `format=plaintext`), an image (when `format=image`), or both.
+ * (when `format=plaintext`), an image (when `format=image`), or both, plus
+ * Wolfram Language syntax (when `format=minput,moutput`).
  */
 export type WolframSubpod = {
   title?: string;
   plaintext?: string;
   img?: WolframImage;
+  minput?: string;
+  moutput?: string;
 };
 
 export type WolframPod = {
@@ -53,6 +56,10 @@ export type ResultItem = {
   text: string;
   /** `img.src` (may be empty when the subpod has no image). */
   imageUrl: string;
+  /** Wolfram Language input expression (may be empty). */
+  minput: string;
+  /** Wolfram Language output value (may be empty). */
+  moutput: string;
 };
 
 type RawResponse = {
@@ -77,7 +84,7 @@ export async function queryWolfram(
     appid,
     input,
     output: "json",
-    format: "image,plaintext",
+    format: "image,plaintext,minput,moutput",
   });
   const res = await fetch(`${API_BASE}?${params.toString()}`);
   if (!res.ok) {
@@ -125,6 +132,8 @@ export function flattenResults(result: WolframQueryResult): ResultItem[] {
         subpodTitle: subpod.title ?? "",
         text,
         imageUrl,
+        minput: (subpod.minput ?? "").trim(),
+        moutput: (subpod.moutput ?? "").trim(),
       });
     });
   }

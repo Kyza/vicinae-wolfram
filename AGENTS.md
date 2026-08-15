@@ -28,7 +28,8 @@ No automated tests. Verification = `npm run build` (or `dev`) plus manual run.
 ## Wolfram Alpha API (hard-earned)
 
 - Endpoint: `https://api.wolframalpha.com/v2/query` with `appid`, `input`, `output=json`,
-  `format=image,plaintext` (one call feeds both list + grid views). See `src/lib/wolfram.ts`.
+  `format=image,plaintext,minput,moutput` (one call feeds list + grid views, plus Wolfram
+  Language syntax). See `src/lib/wolfram.ts`.
 - Response: `queryresult.pods[].subpods[]`, where `subpod.plaintext` is the text result and
   `subpod.img.src` is the image. **Image URLs come back as `http://` — upgrade to `https://`**
   before rendering (`upgradeToHttps`).

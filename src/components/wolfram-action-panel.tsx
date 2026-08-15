@@ -82,6 +82,22 @@ export function WolframItemActionPanel({
       {mode === "list" && item.imageUrl ? (
         <Action title="Copy Image" icon={Icon.Image} onAction={copyImage} />
       ) : null}
+      {item.moutput ? (
+        <Action.CopyToClipboard
+          title="Copy Wolfram Language Output"
+          icon={Icon.Code}
+          content={item.moutput}
+          onCopy={() => onRecord?.()}
+        />
+      ) : null}
+      {item.minput ? (
+        <Action.CopyToClipboard
+          title="Copy Wolfram Language Input"
+          icon={Icon.Code}
+          content={item.minput}
+          onCopy={() => onRecord?.()}
+        />
+      ) : null}
       {onShowHistory ? (
         <Action
           title="Show History"
@@ -91,6 +107,7 @@ export function WolframItemActionPanel({
       ) : null}
       <Action.OpenInBrowser
         title="Open in Wolfram Alpha"
+        icon={Icon.Link}
         url={wolframUrl(query)}
       />
       <Action
