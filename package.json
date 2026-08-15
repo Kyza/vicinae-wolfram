@@ -1,0 +1,102 @@
+{
+  "$schema": "https://raw.githubusercontent.com/vicinaehq/vicinae/refs/heads/main/extra/schemas/extension.json",
+  "name": "vicinae-wolfram",
+  "title": "Wolfram Alpha",
+  "description": "Query the Wolfram Alpha Full Results API. List view shows text results, grid view shows image results.",
+  "icon": "extension_icon.png",
+  "categories": [
+    "Developer Tools",
+    "Productivity"
+  ],
+  "license": "MIT",
+  "platforms": [
+    "Linux",
+    "macOS",
+    "Windows"
+  ],
+  "author": "kyza",
+  "commands": [
+    {
+      "name": "wolfram-query",
+      "title": "Query Wolfram Alpha",
+      "subtitle": "Computational answers",
+      "description": "Ask Wolfram Alpha anything. Enter copies the selected text result (list view) or image result (grid view).",
+      "mode": "view"
+    },
+    {
+      "name": "wolfram-history",
+      "title": "Wolfram Alpha History",
+      "subtitle": "Saved queries",
+      "description": "Results you copied are saved here. Open an entry to view its results again.",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "appid",
+      "title": "Wolfram App ID",
+      "description": "Your Full Results API App ID from https://developer.wolframalpha.com/.",
+      "required": true,
+      "type": "password"
+    },
+    {
+      "name": "defaultView",
+      "title": "Default View",
+      "description": "Which view the command opens with. You can always switch with the toggle action.",
+      "required": false,
+      "type": "dropdown",
+      "data": [
+        {
+          "title": "List (text results)",
+          "value": "list"
+        },
+        {
+          "title": "Grid (image results)",
+          "value": "grid"
+        }
+      ],
+      "default": "list"
+    },
+    {
+      "name": "gridColumns",
+      "title": "Grid Columns",
+      "description": "Number of columns in the image grid view.",
+      "required": false,
+      "type": "dropdown",
+      "data": [
+        {
+          "title": "2",
+          "value": "2"
+        },
+        {
+          "title": "3",
+          "value": "3"
+        },
+        {
+          "title": "4 (Default)",
+          "value": "4"
+        },
+        {
+          "title": "5",
+          "value": "5"
+        },
+        {
+          "title": "6",
+          "value": "6"
+        }
+      ],
+      "default": "4"
+    }
+  ],
+  "dependencies": {
+    "@vicinae/api": "^0.24.0"
+  },
+  "scripts": {
+    "build": "vici build",
+    "dev": "vici develop",
+    "lint": "vici lint"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  }
+}
